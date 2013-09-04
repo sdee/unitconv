@@ -1,7 +1,8 @@
 
 
 var Converter = function() {
-	console.log("init Converter");
+	//TODO: Create data structure of ladders of units
+	//TODO: distinguish between liquid and soilid measures
 	this.units = [
     {"name": "cup", "numBaseUnits": 48.0},
     {"name": "tablespoon", "numBaseUnits": 3.0},
@@ -18,7 +19,7 @@ var Converter = function() {
 		for (i= 0; i < this.units.length; ++i){ //start with largest unit and work down to smallest
 			currUnit = this.units[i];
 			if (numUnits >=  currUnit.numBaseUnits * MIN_FRAC) {
-				console.log("Selected "+currUnit.name);
+				console.log("Selected unit: "+currUnit.name);
 				prettyQuantity=numUnits/currUnit.numBaseUnits;
 
 				if (prettyQuantity % 1 !=0) {

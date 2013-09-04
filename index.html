@@ -8,12 +8,12 @@
     <script src="unit.js"></script>
     <script type="text/javascript">
     $('document').ready(function(){
-    	console.log("Ready!");
-    	var blah = new Converter();
+    	var conv = new Converter();
                     f = new Fraction(1,2);
                     prettyQuantity = f.numerator + '/' + f.denominator;
                                     console.log("pretty quant "+prettyQuantity);
-    	ans = blah.prettyDisplay("48 teaspoon");
+    	//TODO: move tests to jasmine
+        ans = blah.prettyDisplay("48 teaspoon");
         console.log(ans);
         ans2 = blah.prettyDisplay("24 teaspoon");
     	console.log(ans2);
