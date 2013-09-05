@@ -4,6 +4,7 @@
   <body>
 	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
 	<script src="lawnchair.js"></script>
+    <script src="inflection.js"></script>     
     <script src="fraction.js"></script>    	
     <script src="unit.js"></script>
     <script type="text/javascript">
@@ -13,12 +14,14 @@
                     prettyQuantity = f.numerator + '/' + f.denominator;
                                     console.log("pretty quant "+prettyQuantity);
     	//TODO: move tests to jasmine
-        ans = blah.prettyDisplay("48 teaspoon");
+        ans = conv.prettyDisplay("48 teaspoon");
         console.log(ans);
-        ans2 = blah.prettyDisplay("24 teaspoon");
+        ans2 = conv.prettyDisplay("24 teaspoon");
     	console.log(ans2);
-        ans3 = blah.prettyDisplay("23 teaspoon");
+        ans3 = conv.prettyDisplay("23 teaspoon");
         console.log(ans3);
+        ans4 = conv.prettyDisplay("72 teaspoon");
+        console.log(ans4);
     });
     </script>
   </body>

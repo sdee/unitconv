@@ -10,26 +10,35 @@ var Converter = function() {
 	].sort(unitSizeCompare); //rev sorted by size
 	this.prettyDisplay = prettyDisplay;	
 
-	function prettyDisplay(quantity){
-		var MIN_FRAC = 0.125;
+	function prettyDisplay(quantity) {
+		var MIN_FRAC = 0.125; //default
 		var components = quantity.split(" ");
 		var numUnits = parseFloat(components[0]);
 		var unitName = components[1];
-
-		for (i= 0; i < this.units.length; ++i){ //start with largest unit and work down to smallest
+		plural = false;
+		for (i= 0; i < this.units.length; ++i) { //start with largest unit and work down to smallest
 			currUnit = this.units[i];
 			if (numUnits >=  currUnit.numBaseUnits * MIN_FRAC) {
 				console.log("Selected unit: "+currUnit.name);
-				prettyQuantity=numUnits/currUnit.numBaseUnits;
+				prettyQuantity=numUnits / currUnit.numBaseUnits;
 
-				if (prettyQuantity % 1 !=0) {
+				if (prettyQuantity>1) {
+					plural = true;
+				}
+
+				if (prettyQuantity % 1 !=0) { //not round number
 					console.log("fractional "+numUnits+"/"+currUnit.numBaseUnits);
 					rounded = roundToNearestFrac(prettyQuantity, MIN_FRAC);
 					console.log("Rounded "+rounded);
 					f = new Fraction(rounded);
 					prettyQuantity = f.numerator + '/' + f.denominator;
 				}
+
 				prettyUnit = currUnit.name;
+				if (plural===true){
+					prettyUnit = prettyUnit.pluralize();
+				}
+				
 				return [prettyQuantity,prettyUnit].join(" ");
 			}
 		}
@@ -39,7 +48,7 @@ var Converter = function() {
 /*
 utility functions
 */
-var roundToNearestFrac = function (num,roundBy) {
+var roundToNearestFrac = function (num, roundBy) {
 	f = new Fraction(roundBy);
 	if (f.numerator===1) {
 		return Math.floor(num*f.denominator)/f.denominator;
