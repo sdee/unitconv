@@ -20,18 +20,20 @@ var Converter = function() {
 		for (i= 0; i < this.units.length; ++i) { //start with largest unit and work down to smallest
 			var currUnit = this.units[i];
 			if (numUnits >=  currUnit.numBaseUnits * MIN_FRAC) {
+
 				console.log("Selected unit: "+currUnit.name);
 				var quantity = numUnits / currUnit.numBaseUnits;
+				var prettyUnit = currUnit.name;
 
 				if (quantity > 1) {
-					plural = true;
+					prettyUnit = prettyUnit.pluralize();
 				}
 
 				if (quantity % 1 !=0) { //not round number
 					console.log("fractional "+numUnits+"/"+currUnit.numBaseUnits);
 					rounded = roundToNearestFrac(quantity, MIN_FRAC);
 					console.log("Rounded "+rounded);
-					if (rounded > 1) {
+					if (rounded > 1) { //mixed number
 						var whole_num = Math.floor(rounded)
 						var fractional = rounded - whole_num
 						prettyQuantity += String(whole_num)+" ";
@@ -46,13 +48,7 @@ var Converter = function() {
 				else {
 					prettyQuantity = quantity;
 				}
-
-
-				var prettyUnit = currUnit.name;
-				if (plural===true){
-					prettyUnit = prettyUnit.pluralize();
-				}
-				
+								
 				return [prettyQuantity, prettyUnit].join(" ");
 			}
 		}
