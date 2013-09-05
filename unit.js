@@ -2,7 +2,7 @@
 
 var Converter = function() {
 	//TODO: Create data structure of ladders of units
-	//TODO: distinguish between liquid and soilid measures
+	//TODO: distinguish between liquid and solid measures
 	this.units = [
     {"name": "cup", "numBaseUnits": 48.0},
     {"name": "tablespoon", "numBaseUnits": 3.0},
@@ -15,15 +15,15 @@ var Converter = function() {
 		var components = quantity.split(" ");
 		var numUnits = parseFloat(components[0]);
 		var unitName = components[1];
-		prettyQuantity = "";
-		plural = false;
+		var prettyQuantity = "";
+		var plural = false;
 		for (i= 0; i < this.units.length; ++i) { //start with largest unit and work down to smallest
-			currUnit = this.units[i];
+			var currUnit = this.units[i];
 			if (numUnits >=  currUnit.numBaseUnits * MIN_FRAC) {
 				console.log("Selected unit: "+currUnit.name);
-				quantity=numUnits / currUnit.numBaseUnits;
+				var quantity = numUnits / currUnit.numBaseUnits;
 
-				if (quantity>1) {
+				if (quantity > 1) {
 					plural = true;
 				}
 
@@ -31,27 +31,29 @@ var Converter = function() {
 					console.log("fractional "+numUnits+"/"+currUnit.numBaseUnits);
 					rounded = roundToNearestFrac(quantity, MIN_FRAC);
 					console.log("Rounded "+rounded);
-					if (rounded>1) {
-						whole_num = Math.floor(rounded)
-						fractional = rounded - whole_num
+					if (rounded > 1) {
+						var whole_num = Math.floor(rounded)
+						var fractional = rounded - whole_num
 						prettyQuantity += String(whole_num)+" ";
 					}
 					else {
 						whole_num = "";
-						fractional = rounded;
+						var fractional = rounded;
 					}
-
 					f = new Fraction(fractional);
 					prettyQuantity += f.numerator + '/' + f.denominator;
-
+				}
+				else {
+					prettyQuantity = quantity;
 				}
 
-				prettyUnit = currUnit.name;
+
+				var prettyUnit = currUnit.name;
 				if (plural===true){
 					prettyUnit = prettyUnit.pluralize();
 				}
 				
-				return [prettyQuantity,prettyUnit].join(" ");
+				return [prettyQuantity, prettyUnit].join(" ");
 			}
 		}
 	}
