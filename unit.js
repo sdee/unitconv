@@ -15,23 +15,35 @@ var Converter = function() {
 		var components = quantity.split(" ");
 		var numUnits = parseFloat(components[0]);
 		var unitName = components[1];
+		prettyQuantity = "";
 		plural = false;
 		for (i= 0; i < this.units.length; ++i) { //start with largest unit and work down to smallest
 			currUnit = this.units[i];
 			if (numUnits >=  currUnit.numBaseUnits * MIN_FRAC) {
 				console.log("Selected unit: "+currUnit.name);
-				prettyQuantity=numUnits / currUnit.numBaseUnits;
+				quantity=numUnits / currUnit.numBaseUnits;
 
-				if (prettyQuantity>1) {
+				if (quantity>1) {
 					plural = true;
 				}
 
-				if (prettyQuantity % 1 !=0) { //not round number
+				if (quantity % 1 !=0) { //not round number
 					console.log("fractional "+numUnits+"/"+currUnit.numBaseUnits);
-					rounded = roundToNearestFrac(prettyQuantity, MIN_FRAC);
+					rounded = roundToNearestFrac(quantity, MIN_FRAC);
 					console.log("Rounded "+rounded);
-					f = new Fraction(rounded);
-					prettyQuantity = f.numerator + '/' + f.denominator;
+					if (rounded>1) {
+						whole_num = Math.floor(rounded)
+						fractional = rounded - whole_num
+						prettyQuantity += String(whole_num)+" ";
+					}
+					else {
+						whole_num = "";
+						fractional = rounded;
+					}
+
+					f = new Fraction(fractional);
+					prettyQuantity += f.numerator + '/' + f.denominator;
+
 				}
 
 				prettyUnit = currUnit.name;
