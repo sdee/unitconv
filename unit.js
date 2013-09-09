@@ -4,9 +4,9 @@ var Converter = function() {
 	//TODO: Create data structure of ladders of units
 	//TODO: distinguish between liquid and solid measures
 	this.units = [
-    {"name": "cup", "numBaseUnits": 48.0},
-    {"name": "tablespoon", "numBaseUnits": 3.0},
-    {"name": "teaspoon", "numBaseUnits": 1.0}
+	{"name": "cup", "numBaseUnits": 48.0},
+	{"name": "tablespoon", "numBaseUnits": 3.0},
+	{"name": "teaspoon", "numBaseUnits": 1.0}
 	].sort(unitSizeCompare); //rev sorted by size
 	this.prettyDisplay = prettyDisplay;	
 
@@ -31,7 +31,7 @@ var Converter = function() {
 
 				if (quantity % 1 !=0) { //not round number
 					console.log("fractional "+numUnits+"/"+currUnit.numBaseUnits);
-					rounded = roundToNearestFrac(quantity, MIN_FRAC);
+					var rounded = roundToNearestFrac(quantity, MIN_FRAC);
 					console.log("Rounded "+rounded);
 					if (rounded > 1) { //mixed number
 						var whole_num = Math.floor(rounded)
@@ -48,7 +48,7 @@ var Converter = function() {
 				else {
 					prettyQuantity = quantity;
 				}
-								
+
 				return [prettyQuantity, prettyUnit].join(" ");
 			}
 		}
@@ -71,9 +71,9 @@ var roundToNearestFrac = function (num, roundBy) {
 
 var unitSizeCompare  = function (a,b) {
   if (a.quantity > b.quantity)
-     return -1;
+	 return -1;
   if (a.quantity < b.quantity)
-    return 1;
+	return 1;
   return 0;
 }
 
