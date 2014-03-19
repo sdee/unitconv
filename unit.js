@@ -34,8 +34,8 @@ var Converter = function() {
 					var rounded = roundToNearestFrac(quantity, MIN_FRAC);
 					console.log("Rounded "+rounded);
 					if (rounded > 1) { //mixed number
-						var whole_num = Math.floor(rounded)
-						var fractional = rounded - whole_num
+						var whole_num = Math.floor(rounded);
+						var fractional = rounded - whole_num;
 						prettyQuantity += String(whole_num)+" ";
 					}
 					else {
